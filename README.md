@@ -36,7 +36,9 @@
 ├── 2048-script.js     # 游戏核心逻辑
 ├── 2048-style.css     # 样式和主题
 ├── README.md          # 项目说明文档
-└── screenshot.png     # 游戏截图（可选）
+├── screenshot.png     # 游戏截图（可选）
+├── LICENSE            # MIT许可证
+└── screenshot.png     # 游戏截图
 ```
 
 ## 🛠️ 技术栈
