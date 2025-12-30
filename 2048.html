@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 经典游戏</title>
+    <link rel="stylesheet" href="2048-style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">2048</h1>
+            <div class="game-stats">
+                <div class="stat-box">
+                    <div class="stat-label">得分</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">最高分</div>
+                    <div class="stat-value" id="highScore">0</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-controls">
+            <button class="btn btn-primary" id="newGameBtn">新游戏</button>
+            <button class="btn btn-secondary" id="pauseBtn" title="暂停/继续游戏 (空格键)">暂停</button>
+            <button class="btn btn-secondary" id="themeToggle" title="切换明暗主题">🌙</button>
+            <button class="btn btn-secondary" id="soundToggle" title="开启/关闭音效">🔊</button>
+            <button class="btn btn-secondary" id="howToPlayBtn">游戏说明</button>
+        </div>
+
+        <div class="game-stats" id="gameStats">移动: 0 | 时间: 0:00</div>
+
+        <div class="game-board-container">
+            <div class="game-board" id="gameBoard">
+                <div class="tile empty" data-row="0" data-col="0"></div>
+                <div class="tile empty" data-row="0" data-col="1"></div>
+                <div class="tile empty" data-row="0" data-col="2"></div>
+                <div class="tile empty" data-row="0" data-col="3"></div>
+                <div class="tile empty" data-row="1" data-col="0"></div>
+                <div class="tile empty" data-row="1" data-col="1"></div>
+                <div class="tile empty" data-row="1" data-col="2"></div>
+                <div class="tile empty" data-row="1" data-col="3"></div>
+                <div class="tile empty" data-row="2" data-col="0"></div>
+                <div class="tile empty" data-row="2" data-col="1"></div>
+                <div class="tile empty" data-row="2" data-col="2"></div>
+                <div class="tile empty" data-row="2" data-col="3"></div>
+                <div class="tile empty" data-row="3" data-col="0"></div>
+                <div class="tile empty" data-row="3" data-col="1"></div>
+                <div class="tile empty" data-row="3" data-col="2"></div>
+                <div class="tile empty" data-row="3" data-col="3"></div>
+            </div>
+            <div class="game-over-overlay" id="gameOverOverlay">
+                <div class="game-over-content">
+                    <h2>游戏结束</h2>
+                    <p>最终得分：<span id="finalScore">0</span></p>
+                    <button class="btn btn-primary" id="tryAgainBtn">再试一次</button>
+                </div>
+            </div>
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-content">
+                    <h2>⏸️ 游戏暂停</h2>
+                    <p>点击继续按钮恢复游戏</p>
+                    <button class="btn btn-primary" id="resumeBtn">继续游戏 ▶️</button>
+                </div>
+            </div>
+            
+            <!-- 自定义说明弹窗 -->
+            <div class="instructions-modal" id="instructionsModal">
+                <div class="instructions-content">
+                    <div class="instructions-header">
+                        <h2>🎮 游戏说明</h2>
+                        <button class="close-btn" id="closeInstructions">&times;</button>
+                    </div>
+                    <div class="instructions-body">
+                        <div class="instruction-section">
+                            <h3>🎯 目标</h3>
+                            <p>创建带有数字<strong>2048</strong>的方块！</p>
+                        </div>
+                        
+                        <div class="instruction-section">
+                            <h3>🎮 操作方式</h3>
+                            <ul>
+                                <li>使用方向键（↑↓←→）移动方块</li>
+                                <li>点击暂停按钮可以暂停游戏</li>
+                                <li>在移动设备上可以使用虚拟按钮</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-section">
+                            <h3>📋 游戏规则</h3>
+                            <ul>
+                                <li>每次移动后，会在空白处随机出现一个<strong>2</strong>或<strong>4</strong></li>
+                                <li>当两个相同数字的方块碰撞时，它们会合并成一个</li>
+                                <li>合并后的方块数字是原来数字的两倍</li>
+                                <li>当无法移动时游戏结束</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-section">
+                            <h3>🏆 得分</h3>
+                            <p>每次合并都会获得分数，合并后的数字就是获得的分数</p>
+                        </div>
+                        
+                        <div class="instruction-section">
+                            <h3>✨ 特色功能</h3>
+                            <ul>
+                                <li>支持明暗主题切换</li>
+                                <li>可开启/关闭音效</li>
+                                <li>实时统计移动次数和游戏时间</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-footer">
+                            <p>🚀 <strong>祝您游戏愉快！挑战2048吧！</strong></p>
+                        </div>
+                    </div>
+                    <div class="instructions-actions">
+                        <button class="btn btn-primary" id="startGameBtn">开始游戏 🎲</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-controls">
+            <div class="control-row">
+                <button class="control-btn" id="upBtn">↑</button>
+            </div>
+            <div class="control-row">
+                <button class="control-btn" id="leftBtn">←</button>
+                <button class="control-btn" id="downBtn">↓</button>
+                <button class="control-btn" id="rightBtn">→</button>
+            </div>
+            <div style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #776e65;">
+                <small>移动端虚拟按钮</small>
+            </div>
+        </div>
+    </div>
+
+    <script src="2048-script.js"></script>
+</body>
+</html>
